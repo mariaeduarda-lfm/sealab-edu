@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeaLab - Domine a IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <img src="assets/logo-icon.png" alt="Seazone" onerror="this.style.display='none'">
+                    <span class="logo-text">SeaLab</span>
+                </div>
+            </div>
+            <div class="header-center">
+                <nav class="nav-tabs">
+                    <button class="nav-tab active" data-view="lessons">
+                        <i data-lucide="book-open"></i>
+                        <span>Lições</span>
+                    </button>
+                    <button class="nav-tab" data-view="prompts">
+                        <i data-lucide="wand"></i>
+                        <span>Prompts</span>
+                    </button>
+                </nav>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-ghost" id="darkModeBtn" title="Modo Escuro">
+                    <i data-lucide="moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Lessons View -->
+            <section class="view active" id="view-lessons">
+                <div class="lessons-header">
+                    <h2>Trilhas de Aprendizado</h2>
+                    <p>Aprenda a usar IA no dia a dia — rápido, prático.</p>
+                </div>
+                <div class="track-switcher" id="trackSwitcher">
+                    <button class="track-chip active" data-track="claude-code">
+                        <i data-lucide="terminal-square"></i>
+                        Claude Code
+                    </button>
+                    <button class="track-chip" data-track="claude-cowork">
+                        <i data-lucide="users-round"></i>
+                        Claude Cowork
+                    </button>
+                    <button class="track-chip" data-track="claude-design">
+                        <i data-lucide="palette"></i>
+                        Claude Design
+                    </button>
+                </div>
+                <div class="modules-container" id="modulesContainer">
+                    <!-- Modules will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Prompts Library View -->
+            <section class="view" id="view-prompts">
+                <div class="lessons-header">
+                    <h2>Biblioteca de Prompts</h2>
+                    <p>29 atalhos de prompt para usar no Claude no dia a dia. Clique em qualquer um para copiar.</p>
+                </div>
+                <div class="prompts-grid" id="promptsGrid">
+                    <!-- Prompts will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Lesson Practice View -->
+            <section class="view" id="view-practice">
+                <div class="practice-container">
+                    <div class="practice-header">
+                        <button class="btn btn-ghost" id="backToLessons">
+                            <i data-lucide="arrow-left"></i>
+                            Voltar
+                        </button>
+                        <div class="practice-progress">
+                            <span id="exerciseProgress">1/5</span>
+                            <div class="progress-bar-small">
+                                <div class="progress-fill-small" id="exerciseProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="practice-content" id="practiceContent">
+                        <!-- Exercise content will be rendered here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Mascot -->
+        <div class="mascot-container" id="mascotContainer">
+            <div class="mascot-panel" id="mascotPanel">
+                <div class="mascot-panel-header">
+                    <strong class="mascot-panel-title">Bia · assistente virtual do SeaLab</strong>
+                    <button class="mascot-panel-close" id="mascotPanelClose" aria-label="Fechar">✕</button>
+                </div>
+                <div class="mascot-panel-messages" id="mascotPanelMessages">
+                    <div class="mascot-msg mascot-msg-bot">
+                        <p>Oi! Eu sou a Bia</p>
+                        <p>Sua assistente de IA. Posso ajudar você a aprender, testar ideias e descobrir novas formas de usar inteligência artificial no dia a dia.</p>
+                        <p class="mascot-msg-hint">Pergunte algo como:</p>
+                        <ul class="mascot-suggestions">
+                            <li><button class="mascot-suggestion" data-suggestion="Como uso o Composio?">Como uso o Composio?</button></li>
+                            <li><button class="mascot-suggestion" data-suggestion="Como crio uma apresentação com Claude?">Como crio uma apresentação com Claude?</button></li>
+                            <li><button class="mascot-suggestion" data-suggestion="O que é uma Skill?">O que é uma Skill?</button></li>
+                            <li><button class="mascot-suggestion" data-suggestion="Onde começo no SeaLab?">Onde começo no SeaLab?</button></li>
+                        </ul>
+                    </div>
+                </div>
+                <form class="mascot-panel-form" id="mascotPanelForm" autocomplete="off">
+                    <input type="text" id="mascotPanelInput" placeholder="Pergunte algo…" maxlength="240" />
+                    <button type="submit" class="mascot-panel-send" aria-label="Enviar">
+                        <i data-lucide="send"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="mascot-bubble mascot-bubble-hidden" id="mascotBubble">
+                <p class="mascot-message" id="mascotMessage">IA não substitui pessoas. Amplifica talentos. O que você quer criar hoje?</p>
+            </div>
+            <img src="assets/whale-mascot.svg" alt="Bia - Mascote SeaLab" class="mascot-img" id="mascotImg" />
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer"></div>
+    </div>
+
+    <script src="js/app.js" type="module"></script>
+</body>
+</html>
